@@ -5,8 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NOWAISONER"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="370.245" Width="463.285">
     <Grid>
-        
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF938888" Offset="0.699"/>
+                <GradientStop Color="White" Offset="0.125"/>
+                <GradientStop Color="#FF615555" Offset="0.948"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Canvas Margin="19,-5,1039,659">
+            <Label Content="Spatial " HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="94" FontSize="20" FontFamily="MS Gothic" FontStyle="Italic" RenderTransformOrigin="0.606,0.947" Canvas.Top="15" Canvas.Left="262">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.787"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-4.258"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Label Content="Prisoner&#xA;" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="91" FontSize="20" FontFamily="MS Gothic" FontStyle="Italic" Foreground="Black" Canvas.Left="274" Canvas.Top="29" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="-0.341"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-0.493"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Label Content="DILEMMA" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="102" FontSize="24" FontFamily="MS Gothic" Foreground="#FFD82424" Canvas.Top="49" Canvas.Left="261" RenderTransformOrigin="0.794,0.603" FontWeight="Bold" FontStyle="Italic">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.475"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0.67"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <TextBox x:Name="latticesize" Height="25" Canvas.Left="9" TextWrapping="Wrap" Text="&#xD;&#xA;" Canvas.Top="127" Width="127" FontSize="14" TextChanged="latticesize_TextChanged"/>
+            <TextBox x:Name="txtslider2" Text="{Binding ElementName=sliderdefectors, Path=Value, UpdateSourceTrigger=PropertyChanged}" Height="22" Canvas.Left="371" TextWrapping="Wrap" Canvas.Top="130" Width="26" FontSize="14" TextChanged="txtslider2_TextChanged" RenderTransformOrigin="-19.758,-6.16">
+                <TextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.079"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </TextBox.RenderTransform>
+            </TextBox>
+            <Label Content="NOWAISONER" HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" Width="202" FontSize="36" FontFamily="MS Gothic" RenderTransformOrigin="0.606,0.947" Canvas.Top="28" Canvas.Left="75" FontWeight="Bold">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.226"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-5.458"/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+
+        </Canvas>
+        <Label x:Name="neighbourlabel" Content="Neighbours" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,153,0,0" Height="37" FontSize="20" Width="127"/>
+        <ComboBox x:Name="neighbourbox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="127" Height="25" Margin="31,195,0,0" FontSize="14">
+            <ListBoxItem Content="Von Neumann"/>
+            <ListBoxItem Content="Moore"/>
+        </ComboBox>
+        <Label x:Name="neighbourlabel1" Content="Lattice Size" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,84,0,0" Height="37" Width="127" FontSize="20" RenderTransformOrigin="0.95,0.541"/>
+        <Label x:Name="defectorsperc_" Content="Defectors" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="266,84,0,0" Height="37" FontSize="20" Width="119"/>
+        <Slider x:Name="sliderdefectors" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ElementName=txtslider2, Path=text}" HorizontalAlignment="Left" Margin="255,126,0,0" VerticalAlignment="Top" Width="130" BorderBrush="#FF0D0E0C" Foreground="#FF060505" Height="21"/>
+        <Label x:Name="defectorsperc__Copy" Content="%" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="413,113,0,0" Height="37" FontSize="20" Width="29" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.597"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="1.865"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button Content="Start " HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="435" Height="60" Click="Button_Click" FontSize="24" FontWeight="Bold" Background="#FF383838" Foreground="White" BorderBrush="Black"/>
+
     </Grid>
 </Window>

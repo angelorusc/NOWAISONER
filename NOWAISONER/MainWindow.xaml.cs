@@ -23,6 +23,46 @@ namespace NOWAISONER
         public MainWindow()
         {
             InitializeComponent();
+            
+        }
+        public int size;
+        private int defectorsperc;
+
+        public int[,] gamegrid;
+        private int x { get; set; }
+        private int y { get; set; }
+        
+        
+        
+        private void txtslider2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           defectorsperc = Convert.ToInt32(txtslider2.Text);
+        }
+
+        private void CreateGrid(int i, int t)
+        {
+            
+            for (i = 0; i < size; i++)
+            {
+                for (t = 0; t < size; t++)
+                {
+                    
+
+                }
+            }
+        }
+
+        private void latticesize_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            bool isNumeric = int.TryParse(latticesize.Text, out size);
+            
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Form1 form = new Form1(size,defectorsperc);
+            form.Show();
         }
     }
 }
