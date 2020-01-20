@@ -36,7 +36,8 @@ namespace NOWAISONER
         
         private void txtslider2_TextChanged(object sender, TextChangedEventArgs e)
         {
-           defectorsperc = Convert.ToInt32(txtslider2.Text);
+            numdef.Text = Convert.ToString(Convert.ToInt32(txtslider2.Text) * (size*size) / 100);
+            
         }
 
         private void CreateGrid(int i, int t)
@@ -63,6 +64,11 @@ namespace NOWAISONER
         {
             Form1 form = new Form1(size,defectorsperc);
             form.Show();
+        }
+
+        private void numdef_TextChanged(object sender, TextChangedEventArgs e)
+        {
+         
         }
     }
 }

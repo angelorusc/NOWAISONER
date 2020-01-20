@@ -41,6 +41,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cooplist = new System.Windows.Forms.TextBox();
             this.coopshould = new System.Windows.Forms.TextBox();
+            this.typeplayers = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.test2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // panel
@@ -83,7 +86,7 @@
             this.test.Location = new System.Drawing.Point(729, 315);
             this.test.Multiline = true;
             this.test.Name = "test";
-            this.test.Size = new System.Drawing.Size(141, 171);
+            this.test.Size = new System.Drawing.Size(171, 171);
             this.test.TabIndex = 4;
             // 
             // label2
@@ -158,12 +161,41 @@
             this.coopshould.Size = new System.Drawing.Size(55, 26);
             this.coopshould.TabIndex = 13;
             // 
+            // typeplayers
+            // 
+            this.typeplayers.Location = new System.Drawing.Point(720, 565);
+            this.typeplayers.Multiline = true;
+            this.typeplayers.Name = "typeplayers";
+            this.typeplayers.Size = new System.Drawing.Size(180, 143);
+            this.typeplayers.TabIndex = 14;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(764, 549);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(95, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Type of Players";
+            // 
+            // test2
+            // 
+            this.test2.Location = new System.Drawing.Point(729, 492);
+            this.test2.Multiline = true;
+            this.test2.Name = "test2";
+            this.test2.Size = new System.Drawing.Size(171, 49);
+            this.test2.TabIndex = 16;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(912, 736);
+            this.Controls.Add(this.test2);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.typeplayers);
             this.Controls.Add(this.coopshould);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.defelist);
@@ -200,5 +232,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox cooplist;
         private System.Windows.Forms.TextBox coopshould;
+        private System.Windows.Forms.TextBox typeplayers;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox test2;
     }
 }

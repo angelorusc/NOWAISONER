@@ -46,7 +46,7 @@
                 </Label.RenderTransform>
             </Label>
             <TextBox x:Name="latticesize" Height="25" Canvas.Left="9" TextWrapping="Wrap" Text="&#xD;&#xA;" Canvas.Top="127" Width="127" FontSize="14" TextChanged="latticesize_TextChanged"/>
-            <TextBox x:Name="txtslider2" Text="{Binding ElementName=sliderdefectors, Path=Value, UpdateSourceTrigger=PropertyChanged}" Height="22" Canvas.Left="371" TextWrapping="Wrap" Canvas.Top="130" Width="26" FontSize="14" TextChanged="txtslider2_TextChanged" RenderTransformOrigin="-19.758,-6.16">
+            <TextBox x:Name="txtslider2" Text="{Binding ElementName=sliderdefectors, Path=Value, UpdateSourceTrigger=PropertyChanged}" Height="22" Canvas.Left="371" TextWrapping="Wrap" Canvas.Top="130" Width="34" FontSize="14" TextChanged="txtslider2_TextChanged" RenderTransformOrigin="-19.758,-6.16">
                 <TextBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -76,7 +76,7 @@
         <Label x:Name="neighbourlabel1" Content="Lattice Size" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,84,0,0" Height="37" Width="127" FontSize="20" RenderTransformOrigin="0.95,0.541"/>
         <Label x:Name="defectorsperc_" Content="Defectors" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="266,84,0,0" Height="37" FontSize="20" Width="119"/>
         <Slider x:Name="sliderdefectors" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ElementName=txtslider2, Path=text}" HorizontalAlignment="Left" Margin="255,126,0,0" VerticalAlignment="Top" Width="130" BorderBrush="#FF0D0E0C" Foreground="#FF060505" Height="21"/>
-        <Label x:Name="defectorsperc__Copy" Content="%" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="413,113,0,0" Height="37" FontSize="20" Width="29" RenderTransformOrigin="0.5,0.5">
+        <Label x:Name="defectorsperc__Copy" Content="%" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="420,113,0,0" Height="37" FontSize="20" Width="29" RenderTransformOrigin="0.5,0.5">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -87,6 +87,7 @@
             </Label.RenderTransform>
         </Label>
         <Button Content="Start " HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="435" Height="60" Click="Button_Click" FontSize="24" FontWeight="Bold" Background="#FF383838" Foreground="White" BorderBrush="Black"/>
+        <TextBox x:Name="numdef" HorizontalAlignment="Left" Height="23" Margin="295,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
 
     </Grid>
 </Window>

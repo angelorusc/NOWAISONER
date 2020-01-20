@@ -12,7 +12,7 @@ namespace NOWAISONER
         private string strategy;
         private int fitnessScore;
         private int boxNo = 0;
-        private int state = 0;
+        private string state;
 
         public int X
         {
@@ -39,19 +39,29 @@ namespace NOWAISONER
             get { return boxNo; }
             set { this.boxNo = BoxNo; }
         }
-        public int State
+        public string State
         {
             get { return state; }
             set { this.state = State; }
         }
 
-        public Player(int x, int y, int num, string strategy)
+        public Player(int x, int y, int num, string State)
         {
             this.num = num;
             this.x = x;
             this.y = y;
-            this.strategy = strategy;
+            this.state = State;
             // this.fitnessScore = 0;
         }
+        public void setScore(int s)
+        {
+            fitnessScore = s;
+        }
+        public void setState(string s)
+        {
+            state = s;
+        }
+
+
     }
 }
