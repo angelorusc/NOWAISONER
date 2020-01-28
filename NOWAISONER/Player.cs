@@ -9,10 +9,29 @@ namespace NOWAISONER
     class Player
     {
         private int x, y, num;
-        private string strategy;
-        private int fitnessScore;
-        private int boxNo = 0;
+        private int fitnessScore = 0;
         private string state;
+        private List<Player> neighbour = new List<Player>(); // index 0 = left, 1 = right, 2 = up, 3 = down;
+        private List<Player> mooreNeighbour = new List<Player>(); // index 0 = up-left, 1 = up-right, 2 = down-left, 3 = down-right;
+
+        public List<Player> Neighbour
+        {
+            get { return neighbour; }
+            set { this.neighbour = Neighbour; }
+        }
+        public List<Player> MooreNeighbour
+        {
+            get { return mooreNeighbour; }
+            set { this.mooreNeighbour = MooreNeighbour; }
+        }
+        public void AddNeighbour(Player p)
+        {
+            neighbour.Add(p);
+        }
+        public void AddMooreNeighbour(Player p)
+        {
+            mooreNeighbour.Add(p);
+        }
 
         public int X
         {
@@ -32,17 +51,13 @@ namespace NOWAISONER
         public int FitnessScore
         {
             get { return fitnessScore; }
-            set { this.fitnessScore = FitnessScore; }
+            set { this.fitnessScore = value; }
         }
-        public int BoxNo
-        {
-            get { return boxNo; }
-            set { this.boxNo = BoxNo; }
-        }
+        
         public string State
         {
             get { return state; }
-            set { this.state = State; }
+            set { this.state = value; }
         }
 
         public Player(int x, int y, int num, string State)
@@ -53,15 +68,6 @@ namespace NOWAISONER
             this.state = State;
             // this.fitnessScore = 0;
         }
-        public void setScore(int s)
-        {
-            fitnessScore = s;
-        }
-        public void setState(string s)
-        {
-            state = s;
-        }
-
-
+       
     }
 }

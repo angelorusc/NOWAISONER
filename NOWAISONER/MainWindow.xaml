@@ -15,7 +15,7 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Canvas Margin="19,-5,1039,659">
-            <Label Content="Spatial " HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="94" FontSize="20" FontFamily="MS Gothic" FontStyle="Italic" RenderTransformOrigin="0.606,0.947" Canvas.Top="15" Canvas.Left="262">
+            <Label Content="Spatial " HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="94" FontSize="20" FontFamily="MS Gothic" FontStyle="Italic" RenderTransformOrigin="0.606,0.947" Canvas.Top="13" Canvas.Left="262">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -45,7 +45,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <TextBox x:Name="latticesize" Height="25" Canvas.Left="9" TextWrapping="Wrap" Text="&#xD;&#xA;" Canvas.Top="127" Width="127" FontSize="14" TextChanged="latticesize_TextChanged"/>
+            <TextBox x:Name="latticesize" Height="25" Canvas.Left="9" TextWrapping="Wrap" Text="&#xD;&#xA;" Canvas.Top="127" Width="127" FontSize="14" TextChanged="latticesize_TextChanged" MaxLines="1"/>
             <TextBox x:Name="txtslider2" Text="{Binding ElementName=sliderdefectors, Path=Value, UpdateSourceTrigger=PropertyChanged}" Height="22" Canvas.Left="371" TextWrapping="Wrap" Canvas.Top="130" Width="34" FontSize="14" TextChanged="txtslider2_TextChanged" RenderTransformOrigin="-19.758,-6.16">
                 <TextBox.RenderTransform>
                     <TransformGroup>
@@ -56,7 +56,7 @@
                     </TransformGroup>
                 </TextBox.RenderTransform>
             </TextBox>
-            <Label Content="NOWAISONER" HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" Width="202" FontSize="36" FontFamily="MS Gothic" RenderTransformOrigin="0.606,0.947" Canvas.Top="28" Canvas.Left="75" FontWeight="Bold">
+            <Label Content="NOWAISONER" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="198" FontSize="36" FontFamily="MS Gothic" RenderTransformOrigin="0.606,0.947" Canvas.Top="27" Canvas.Left="76" FontWeight="Bold">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -69,8 +69,8 @@
 
         </Canvas>
         <Label x:Name="neighbourlabel" Content="Neighbours" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,153,0,0" Height="37" FontSize="20" Width="127"/>
-        <ComboBox x:Name="neighbourbox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="127" Height="25" Margin="31,195,0,0" FontSize="14">
-            <ListBoxItem Content="Von Neumann"/>
+        <ComboBox x:Name="neighbourbox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="127" Height="25" Margin="31,195,0,0" FontSize="14" SelectionChanged="neighbourbox_SelectionChanged">
+            <ListBoxItem Content="Von Neumann" IsSelected="True"/>
             <ListBoxItem Content="Moore"/>
         </ComboBox>
         <Label x:Name="neighbourlabel1" Content="Lattice Size" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,84,0,0" Height="37" Width="127" FontSize="20" RenderTransformOrigin="0.95,0.541"/>
@@ -87,7 +87,7 @@
             </Label.RenderTransform>
         </Label>
         <Button Content="Start " HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="435" Height="60" Click="Button_Click" FontSize="24" FontWeight="Bold" Background="#FF383838" Foreground="White" BorderBrush="Black"/>
-        <TextBox x:Name="numdef" HorizontalAlignment="Left" Height="23" Margin="295,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
+        <TextBox x:Name="numdef" HorizontalAlignment="Left" Height="23" Margin="295,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" MaxLines="1" FontSize="16"/>
 
     </Grid>
 </Window>

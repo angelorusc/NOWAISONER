@@ -27,30 +27,14 @@ namespace NOWAISONER
         }
         public int size;
         private int defectorsperc;
-
-        public int[,] gamegrid;
-        private int x { get; set; }
-        private int y { get; set; }
-        
-        
+        private string neightype;
+    
         
         private void txtslider2_TextChanged(object sender, TextChangedEventArgs e)
         {
-            numdef.Text = Convert.ToString(Convert.ToInt32(txtslider2.Text) * (size*size) / 100);
+            defectorsperc = Convert.ToInt32(txtslider2.Text) * (size * size) / 100;
+            numdef.Text = Convert.ToString(defectorsperc);
             
-        }
-
-        private void CreateGrid(int i, int t)
-        {
-            
-            for (i = 0; i < size; i++)
-            {
-                for (t = 0; t < size; t++)
-                {
-                    
-
-                }
-            }
         }
 
         private void latticesize_TextChanged(object sender, TextChangedEventArgs e)
@@ -62,13 +46,25 @@ namespace NOWAISONER
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Form1 form = new Form1(size,defectorsperc);
-            form.Show();
+            Game game = new Game(size, defectorsperc, neightype);
+            game.Show();
         }
 
         private void numdef_TextChanged(object sender, TextChangedEventArgs e)
         {
          
+        }
+
+        private void neighbourbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (neighbourbox.Text == "Von Neumann")
+            {
+                neightype = "V";
+            }
+            else
+            {
+                neightype = "M";
+            }
         }
     }
 }
