@@ -25,8 +25,9 @@ namespace NOWAISONER
             InitializeComponent();
             
         }
-        public int size;
-        private int defectorsperc;
+        private int size;
+        private int iterationn;
+        private int defectorsperc = 0;
         private string neightype;
     
         
@@ -40,14 +41,14 @@ namespace NOWAISONER
         private void latticesize_TextChanged(object sender, TextChangedEventArgs e)
         {
             bool isNumeric = int.TryParse(latticesize.Text, out size);
-            
-            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Game game = new Game(size, defectorsperc, neightype);
-            game.Show();
+            
+                Game game = new Game(size, defectorsperc, neightype, iterationn);
+                game.Show();
+            
         }
 
         private void numdef_TextChanged(object sender, TextChangedEventArgs e)
@@ -65,6 +66,11 @@ namespace NOWAISONER
             {
                 neightype = "M";
             }
+        }
+
+        private void iteration_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            bool isNumeric = int.TryParse(iteration.Text, out iterationn);
         }
     }
 }

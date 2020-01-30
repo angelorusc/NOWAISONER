@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NOWAISONER"
         mc:Ignorable="d"
-        Title="MainWindow" Height="370.245" Width="463.285">
+        Title="MainWindow" Height="446.245" Width="463.285">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -66,11 +66,12 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
+            <TextBox x:Name="iteration" Height="25" Canvas.Left="9" TextWrapping="Wrap" Text="&#xA;" Canvas.Top="259" Width="127" FontSize="14" MaxLines="1" TextChanged="iteration_TextChanged"/>
 
         </Canvas>
         <Label x:Name="neighbourlabel" Content="Neighbours" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,153,0,0" Height="37" FontSize="20" Width="127"/>
         <ComboBox x:Name="neighbourbox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="127" Height="25" Margin="31,195,0,0" FontSize="14" SelectionChanged="neighbourbox_SelectionChanged">
-            <ListBoxItem Content="Von Neumann" IsSelected="True"/>
+            <ListBoxItem Content="Von Neumann"/>
             <ListBoxItem Content="Moore"/>
         </ComboBox>
         <Label x:Name="neighbourlabel1" Content="Lattice Size" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,84,0,0" Height="37" Width="127" FontSize="20" RenderTransformOrigin="0.95,0.541"/>
@@ -86,8 +87,9 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Button Content="Start " HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top" Width="435" Height="60" Click="Button_Click" FontSize="24" FontWeight="Bold" Background="#FF383838" Foreground="White" BorderBrush="Black"/>
+        <Button Content="Start " HorizontalAlignment="Left" Margin="10,345,0,0" VerticalAlignment="Top" Width="435" Height="60" Click="Button_Click" FontSize="24" FontWeight="Bold" Background="#FF383838" Foreground="White" BorderBrush="Black"/>
         <TextBox x:Name="numdef" HorizontalAlignment="Left" Height="23" Margin="295,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" MaxLines="1" FontSize="16"/>
+        <Label x:Name="neighbourlabel_Copy" Content="Iterations" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,220,0,0" Height="37" FontSize="20" Width="127"/>
 
     </Grid>
 </Window>

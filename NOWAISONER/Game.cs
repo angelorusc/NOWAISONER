@@ -12,27 +12,38 @@ namespace NOWAISONER
 {
     public partial class Game : Form
     {
-        private int size;
-        private int defectors;
-        private string neighbourtype;
+        private int size; //size of grid
+        private int defectors; // number of defectors
+        private string neighbourtype; // von neumann or moore neighbours
+        private int iterations; // number of iterations
+        bool drawn = false; // bool if grid is drawn
 
-        private List<Player> defectorslis = new List<Player>(); //defector list filled to test
-        private List<Player> cooperatorslis = new List<Player>();
-        private List<Player> Players = new List<Player>();
-        bool drawn = false;
-        Player[,] Agents;
+        private List<Player> defectorslis = new List<Player>();  //defector list to take count of defectors
+        private List<Player> cooperatorslis = new List<Player>(); // cooperators list 
+        private List<Player> Players = new List<Player>(); // list of players
+        
+        Player[,] Agents; // 2d array for keep players location
 
-        Random rand = new Random(); //get random number
-        public Game(int size, int defectors, string neigh)
+        private float[] locx; // location of panel for graphics drawing
+        private float[] locy;
+
+        Random rand = new Random(); //random number 
+
+        Graphics gr;
+        Pen myPen = new Pen(Brushes.Black, 1); 
+        Font myFont = new Font("Arial", 10); //  (panel1.Width <= panel1.Height) ? xSpace / 3 : ySpace / 3)
+
+        public Game(int size, int defectors, string neigh, int iters)
         {
             InitializeComponent();
             playersnum.Text = Convert.ToString(size * size);
             this.size = size;
             this.defectors = defectors;
             this.neighbourtype = neigh;
+            this.iterations = iters;
         }
 
-        public int GetRandomNumber()
+        public int GetRandomNumber()  // get next random int for decide which cell defect
         {
             Random rand = new Random();
             return rand.Next(size);
@@ -41,16 +52,12 @@ namespace NOWAISONER
         private void drawbtn_Click(object sender, EventArgs e)
         {
             drawn = true;
-            Graphics gr = panel1.CreateGraphics();
-            Pen myPen = new Pen(Brushes.Black, 1);
+            gr = panel1.CreateGraphics();
             float x = 0f;
             float y = 0f;
             float xSpace = ((panel1.Width - myPen.Width) * 1.0f / size);
             float ySpace = ((panel1.Height - myPen.Width) * 1.0f / size);
-            Font myFont = new Font("Arial", 10); //  (panel1.Width <= panel1.Height) ? xSpace / 3 : ySpace / 3)
-
             Agents = new Player[size, size];
-           
             int counter = 0;
 
             for (int i = 0; i < size + 1; i++)
@@ -67,15 +74,14 @@ namespace NOWAISONER
             }
             x = 0f;
             y = 0f;
+            locx = new float[size];
+            locy = new float[size];
 
-            float[] locx = new float[size];
-            float[] locy = new float[size];
-
-          
             for (int r = 0; r < size; r++)
             {
                 for (int c = 0; c < size; c++)
                 {
+                    
                     Player p = new Player(c, r, counter, "");
                     Players.Add(p);
                     Agents[c, r] = p;
@@ -85,13 +91,18 @@ namespace NOWAISONER
                     x += xSpace;
                     counter++;
                 }
-               locy[r] = y;
+                locy[r] = y;
                 y += ySpace;
                 x = 0;
             }
+            drawStates();
+            
 
+            GetNeighbour();
+        }
 
-
+        private void drawStates()
+        {
             for (int k = 0; k < defectors; k++)
             {
                 int xdef = rand.Next(size);
@@ -100,24 +111,21 @@ namespace NOWAISONER
                 {
                     Agents[xdef, ydef].State = "D";
                     defectorslis.Add(Agents[xdef, ydef]);
-                    gr.DrawString(Convert.ToString(Agents[xdef, ydef].X + " " + Agents[xdef, ydef].Y), myFont, Brushes.Red, locx[xdef], locy[ydef]);
+                    gr.DrawString("D", myFont, Brushes.Red, locx[xdef], locy[ydef]);
                 }
                 else k--;
             }
-            defelist.Text = Convert.ToString(defectorslis.Count);
-
-
             foreach (Player p in Players.Where(p => p.State != "D"))
             {
                 p.State = "C";
-                gr.DrawString(Convert.ToString(p.X + " " + p.Y), myFont, Brushes.Green, locx[p.X], locy[p.Y]);
+                gr.DrawString("C", myFont, Brushes.Green, locx[p.X], locy[p.Y]);
                 cooperatorslis.Add(p);
-               
-            }
-            cooplist.Text = Convert.ToString(cooperatorslis.Count);
-            GetNeighbour();
-        }
 
+            }
+            defelist.Text = Convert.ToString(defectorslis.Count);
+            cooplist.Text = Convert.ToString(cooperatorslis.Count);
+        }
+       
         private void GetNeighbour()
         {
             foreach (Player p in Players)
@@ -126,7 +134,7 @@ namespace NOWAISONER
 
                 if (p.X == 0)
                 {
-                    p.AddNeighbour(Agents[size - 1, p.Y]); 
+                    p.AddNeighbour(Agents[size - 1, p.Y]);
                 }
                 else p.AddNeighbour(Agents[p.X - 1, p.Y]); // left
 
@@ -222,13 +230,26 @@ namespace NOWAISONER
                 }
             }
 
-          // typeofplayers.Text = Convert.ToString(Agents[7,9].Neighbour[3].X + "," + Agents[7,9].Neighbour[3].Y + " : " + Agents[9,9].MooreNeighbour[3].Num + ".... " + Agents[7,9].Neighbour[3].State);
+            // typeofplayers.Text = Convert.ToString(Agents[7,9].Neighbour[3].X + "," + Agents[7,9].Neighbour[3].Y + " : " + Agents[9,9].MooreNeighbour[3].Num + ".... " + Agents[7,9].Neighbour[3].State);
         }
 
         private void btnplay_Click(object sender, EventArgs e)
         {
+           // for (int i = 0; i < iterations; iterations++)
+           // {
+                Match();
+                newGeneration();
+           // }
+            // drawStates();
+
+        }
+
+       
+
+        private void Match()
+        {
             if (drawn)
-                {
+            {
                 foreach (Player p in Players)
                 {
                     Play(p, p.Neighbour[0]);
@@ -244,11 +265,10 @@ namespace NOWAISONER
                         Play(p, p.MooreNeighbour[3]);
                     }
                 }
-                
-                typeofplayers.Text = Convert.ToString(Agents[3,0].X + " " + Agents[3,0].Y + " " + Agents[3, 0].Num + " " + Agents[3,0].State + " " + Agents[3, 0].FitnessScore + " // " + Players[3].X + " " + Players[3].Y + " " + Players[3].Num + " " + Players[3].State + " " + Players[3].FitnessScore + " ");
+
+              //  typeofplayers.Text = Convert.ToString(Agents[3, 0].X + " " + Agents[3, 0].Y + " " + Agents[3, 0].Num + " " + Agents[3, 0].State + " " + Agents[3, 0].FitnessScore + " // " + Players[3].X + " " + Players[3].Y + " " + Players[3].Num + " " + Players[3].State + " " + Players[3].FitnessScore + " ");
             }
         }
-
         private void Play(Player player1, Player player2)
         {
             if (player1.State == "C")
@@ -273,6 +293,43 @@ namespace NOWAISONER
                     player1.FitnessScore += 1;
                 }
             }
+        }
+        private void newGeneration()
+        {
+            cooperatorslis.Clear();
+            defectorslis.Clear(); 
+
+           foreach (Player p in Players)
+           {
+                Player BestV = p.Neighbour.Aggregate((p1, p2) => p1.FitnessScore > p2.FitnessScore ? p1 : p2);
+                if (neighbourtype == "M")
+                {
+                    Player BestM = p.MooreNeighbour.Aggregate((p1, p2) => p1.FitnessScore > p2.FitnessScore ? p1 : p2);
+
+                    if (BestV.FitnessScore >= BestM.FitnessScore)
+                    {
+                        p.State = BestV.State;
+                    }
+                    else
+                    {
+                        p.State = BestM.State;
+                    }
+                }
+                else p.State = BestV.State;
+                // typeofplayers.Text += Best.Num;
+           }
+            foreach (Player p in Players.Where(p => p.State == "D"))
+            {
+                gr.DrawString("D", myFont, Brushes.Red, locx[p.X], locy[p.Y]);
+                defectorslis.Add(p);
+            }
+            foreach (Player p in Players.Where(p => p.State == "C"))
+            {
+                gr.DrawString("C", myFont, Brushes.Green, locx[p.X], locy[p.Y]);
+                cooperatorslis.Add(p);
+            }
+            defelist.Text = Convert.ToString(defectorslis.Count);
+            cooplist.Text = Convert.ToString(cooperatorslis.Count);
         }
     }
 }
