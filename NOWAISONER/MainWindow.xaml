@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NOWAISONER"
         mc:Ignorable="d"
-        Title="MainWindow" Height="446.245" Width="463.285">
+        Title="MainWindow" Height="506.245" Width="541.285">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -15,7 +15,7 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Canvas Margin="19,-5,1039,659">
-            <Label Content="Spatial " HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="94" FontSize="20" FontFamily="MS Gothic" FontStyle="Italic" RenderTransformOrigin="0.606,0.947" Canvas.Top="13" Canvas.Left="262">
+            <Label Content="Spatial " HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="94" FontSize="20" FontFamily="MS Gothic" FontStyle="Italic" RenderTransformOrigin="0.606,0.947" Canvas.Top="12" Canvas.Left="290">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -25,7 +25,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Label Content="Prisoner&#xA;" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="91" FontSize="20" FontFamily="MS Gothic" FontStyle="Italic" Foreground="Black" Canvas.Left="274" Canvas.Top="29" RenderTransformOrigin="0.5,0.5">
+            <Label Content="Prisoner&#xA;" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="91" FontSize="20" FontFamily="MS Gothic" FontStyle="Italic" Foreground="Black" Canvas.Left="302" Canvas.Top="28" RenderTransformOrigin="0.5,0.5">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -35,7 +35,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Label Content="DILEMMA" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="102" FontSize="24" FontFamily="MS Gothic" Foreground="#FFD82424" Canvas.Top="49" Canvas.Left="261" RenderTransformOrigin="0.794,0.603" FontWeight="Bold" FontStyle="Italic">
+            <Label Content="DILEMMA" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="102" FontSize="24" FontFamily="MS Gothic" Foreground="#FFD82424" Canvas.Top="48" Canvas.Left="289" RenderTransformOrigin="0.794,0.603" FontWeight="Bold" FontStyle="Italic">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -45,8 +45,8 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <TextBox x:Name="latticesize" Height="25" Canvas.Left="9" TextWrapping="Wrap" Text="&#xD;&#xA;" Canvas.Top="127" Width="127" FontSize="14" TextChanged="latticesize_TextChanged" MaxLines="1"/>
-            <TextBox x:Name="txtslider2" Text="{Binding ElementName=sliderdefectors, Path=Value, UpdateSourceTrigger=PropertyChanged}" Height="22" Canvas.Left="371" TextWrapping="Wrap" Canvas.Top="130" Width="34" FontSize="14" TextChanged="txtslider2_TextChanged" RenderTransformOrigin="-19.758,-6.16">
+            <TextBox x:Name="latticesize" Height="25" Canvas.Left="24" TextWrapping="Wrap" Text="5&#xA;" Canvas.Top="126" Width="137" FontSize="16" TextChanged="latticesize_TextChanged" MaxLines="1" FontFamily="Yu Gothic"/>
+            <TextBox x:Name="perctxt" Text="" Height="23" Canvas.Left="401" TextWrapping="Wrap" Canvas.Top="155" Width="56" FontSize="16" TextChanged="txtslider2_TextChanged" RenderTransformOrigin="-19.758,-6.16" MaxLines="1" FontFamily="Yu Gothic">
                 <TextBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -56,7 +56,7 @@
                     </TransformGroup>
                 </TextBox.RenderTransform>
             </TextBox>
-            <Label Content="NOWAISONER" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="198" FontSize="36" FontFamily="MS Gothic" RenderTransformOrigin="0.606,0.947" Canvas.Top="27" Canvas.Left="76" FontWeight="Bold">
+            <Label Content="NOWAISONER" HorizontalAlignment="Left" Height="54" VerticalAlignment="Top" Width="198" FontSize="36" FontFamily="MS Gothic" RenderTransformOrigin="0.606,0.947" Canvas.Top="26" Canvas.Left="104" FontWeight="Bold">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -66,30 +66,33 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <TextBox x:Name="iteration" Height="25" Canvas.Left="9" TextWrapping="Wrap" Text="&#xA;" Canvas.Top="259" Width="127" FontSize="14" MaxLines="1" TextChanged="iteration_TextChanged"/>
+            <TextBox x:Name="iteration" Height="25" Canvas.Left="24" TextWrapping="Wrap" Text="10&#xA;" Canvas.Top="268" Width="138" FontSize="16" MaxLines="1" TextChanged="iteration_TextChanged" FontFamily="Yu Gothic"/>
 
         </Canvas>
-        <Label x:Name="neighbourlabel" Content="Neighbours" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,153,0,0" Height="37" FontSize="20" Width="127"/>
-        <ComboBox x:Name="neighbourbox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="127" Height="25" Margin="31,195,0,0" FontSize="14" SelectionChanged="neighbourbox_SelectionChanged">
-            <ListBoxItem Content="Von Neumann"/>
+        <Label x:Name="neighbourlabel" Content="Neighbours" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="53,153,0,0" Height="37" FontSize="20" Width="120"/>
+        <ComboBox x:Name="neighbourbox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="137" Height="25" Margin="43,190,0,0" FontSize="16" SelectionChanged="neighbourbox_SelectionChanged" FontFamily="Yu Gothic">
+            <ListBoxItem Content="Von Neumann" IsSelected="True"/>
             <ListBoxItem Content="Moore"/>
         </ComboBox>
-        <Label x:Name="neighbourlabel1" Content="Lattice Size" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,84,0,0" Height="37" Width="127" FontSize="20" RenderTransformOrigin="0.95,0.541"/>
-        <Label x:Name="defectorsperc_" Content="Defectors" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="266,84,0,0" Height="37" FontSize="20" Width="119"/>
-        <Slider x:Name="sliderdefectors" Minimum="0" Maximum="100" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ElementName=txtslider2, Path=text}" HorizontalAlignment="Left" Margin="255,126,0,0" VerticalAlignment="Top" Width="130" BorderBrush="#FF0D0E0C" Foreground="#FF060505" Height="21"/>
-        <Label x:Name="defectorsperc__Copy" Content="%" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="420,113,0,0" Height="37" FontSize="20" Width="29" RenderTransformOrigin="0.5,0.5">
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleY="0.597"/>
-                    <RotateTransform/>
-                    <TranslateTransform Y="1.865"/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
-        <Button Content="Start " HorizontalAlignment="Left" Margin="10,345,0,0" VerticalAlignment="Top" Width="435" Height="60" Click="Button_Click" FontSize="24" FontWeight="Bold" Background="#FF383838" Foreground="White" BorderBrush="Black"/>
-        <TextBox x:Name="numdef" HorizontalAlignment="Left" Height="23" Margin="295,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" MaxLines="1" FontSize="16"/>
-        <Label x:Name="neighbourlabel_Copy" Content="Iterations" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic" Margin="31,220,0,0" Height="37" FontSize="20" Width="127"/>
+        <Label x:Name="neighbourlabel1" Content="Lattice Size" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="53,84,0,0" Height="37" Width="120" FontSize="20" RenderTransformOrigin="0.95,0.541"/>
+        <Label x:Name="defectorsperc_" Content="Defectors" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="331,84,0,0" Height="37" FontSize="20" Width="102"/>
+        <Button Content="Start " HorizontalAlignment="Left" Margin="10,405,0,0" VerticalAlignment="Top" Width="513" Height="60" Click="Button_Click" FontSize="24" FontWeight="Bold" Background="#FF383838" Foreground="White" BorderBrush="Black" RenderTransformOrigin="0.499,1.417"/>
+        <TextBox x:Name="numtxt" HorizontalAlignment="Left" Height="23" Margin="421,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" MaxLines="1" FontSize="16" Text="&#xD;&#xA;" FontFamily="Yu Gothic" TextChanged="numtxt_TextChanged"/>
+        <Label x:Name="neighbourlabel_Copy" Content="Iterations" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="53,225,0,0" Height="37" FontSize="20" Width="120"/>
+        <RadioButton Content="Clickable" HorizontalAlignment="Left" Margin="285,120,0,0" VerticalAlignment="Top" Height="33" Width="139" FontSize="16" FontFamily="Yu Gothic" Checked="RadioButton_Checked_1"/>
+        <Label x:Name="n" Content="N." HorizontalAlignment="Left" Margin="477,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,1.269" Height="23"/>
+        <Label x:Name="neighbourlabel_Copy1" Content="Updating" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="331,211,0,0" Height="37" FontSize="20" Width="102"/>
+        <RadioButton Content="By Percentage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Width="128" FontSize="16" FontFamily="Yu Gothic" Checked="RadioButton_Checked" Margin="380,120,0,0"/>
+
+
+        <RadioButton x:Name="asyn" Content="Asynchronous" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="140" FontSize="16" FontFamily="Yu Gothic" Margin="312,253,0,0" Checked="asyn_Checked"/>
+        <RadioButton x:Name="sync" Content="Synchronous" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="128" FontSize="16" FontFamily="Yu Gothic" Margin="312,286,0,0" Checked="sync_Checked"/>
+        <ComboBox x:Name="boundaries" HorizontalAlignment="Left" VerticalAlignment="Top" Width="137" Height="25" Margin="43,328,0,0" FontSize="16" SelectionChanged="neighbourbox_SelectionChanged" FontFamily="Yu Gothic">
+            <ListBoxItem Content="Fixed "/>
+            <ListBoxItem Content="Taurus"/>
+        </ComboBox>
+        <Label x:Name="neighbourlabel_Copy2" Content="Boundaries" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="53,291,0,0" Height="37" FontSize="20" Width="120"/>
+        <Label x:Name="n_Copy" Content="%" HorizontalAlignment="Left" Margin="477,146,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,1.269"/>
 
     </Grid>
 </Window>

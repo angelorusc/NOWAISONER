@@ -24,17 +24,25 @@ namespace NOWAISONER
         {
             InitializeComponent();
             
+            perctxt.Visibility = Visibility.Collapsed;
+            numtxt.Visibility = Visibility.Collapsed;
+            n.Visibility = Visibility.Collapsed;
+            n_Copy.Visibility = Visibility.Collapsed;
         }
         private int size;
         private int iterationn;
         private int defectorsperc = 0;
         private string neightype;
+        private string typeofdefectors;
+        private string synchro;
     
         
         private void txtslider2_TextChanged(object sender, TextChangedEventArgs e)
         {
-            defectorsperc = Convert.ToInt32(txtslider2.Text) * (size * size) / 100;
-            numdef.Text = Convert.ToString(defectorsperc);
+            
+            defectorsperc = Convert.ToInt32(perctxt.Text) * (size * size) / 100;
+            
+            numtxt.Text = Convert.ToString(defectorsperc);
             
         }
 
@@ -46,7 +54,7 @@ namespace NOWAISONER
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             
-                Game game = new Game(size, defectorsperc, neightype, iterationn);
+                Game game = new Game(size, defectorsperc, neightype, iterationn, synchro);
                 game.Show();
             
         }
@@ -71,6 +79,40 @@ namespace NOWAISONER
         private void iteration_TextChanged(object sender, TextChangedEventArgs e)
         {
             bool isNumeric = int.TryParse(iteration.Text, out iterationn);
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            typeofdefectors = "perc";
+            perctxt.Visibility = Visibility.Visible;
+            numtxt.Visibility = Visibility.Visible;
+            n.Visibility = Visibility.Visible;
+            n_Copy.Visibility = Visibility.Visible;
+
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            typeofdefectors = "click";
+            perctxt.Visibility = Visibility.Collapsed;
+            numtxt.Visibility = Visibility.Collapsed;
+            n.Visibility = Visibility.Collapsed;
+            n_Copy.Visibility = Visibility.Collapsed;
+        }
+
+        private void asyn_Checked(object sender, RoutedEventArgs e)
+        {
+            synchro = "asy";
+        }
+
+        private void sync_Checked(object sender, RoutedEventArgs e)
+        {
+            synchro = "syn";
+        }
+
+        private void numtxt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //defectorsperc = Convert.ToInt32(numtxt.Text);
         }
     }
 }
