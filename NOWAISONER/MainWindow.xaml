@@ -46,7 +46,7 @@
                 </Label.RenderTransform>
             </Label>
             <TextBox x:Name="latticesize" Height="25" Canvas.Left="24" TextWrapping="Wrap" Text="5&#xA;" Canvas.Top="126" Width="137" FontSize="16" TextChanged="latticesize_TextChanged" MaxLines="1" FontFamily="Yu Gothic"/>
-            <TextBox x:Name="perctxt" Text="" Height="23" Canvas.Left="401" TextWrapping="Wrap" Canvas.Top="155" Width="56" FontSize="16" TextChanged="txtslider2_TextChanged" RenderTransformOrigin="-19.758,-6.16" MaxLines="1" FontFamily="Yu Gothic">
+            <TextBox x:Name="perctxt" Text="" Height="23" Canvas.Left="400" TextWrapping="Wrap" Canvas.Top="169" Width="56" FontSize="16" TextChanged="txtslider2_TextChanged" RenderTransformOrigin="-19.758,-6.16" MaxLines="1" FontFamily="Yu Gothic">
                 <TextBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -77,22 +77,35 @@
         <Label x:Name="neighbourlabel1" Content="Lattice Size" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="53,84,0,0" Height="37" Width="120" FontSize="20" RenderTransformOrigin="0.95,0.541"/>
         <Label x:Name="defectorsperc_" Content="Defectors" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="331,84,0,0" Height="37" FontSize="20" Width="102"/>
         <Button Content="Start " HorizontalAlignment="Left" Margin="10,405,0,0" VerticalAlignment="Top" Width="513" Height="60" Click="Button_Click" FontSize="24" FontWeight="Bold" Background="#FF383838" Foreground="White" BorderBrush="Black" RenderTransformOrigin="0.499,1.417"/>
-        <TextBox x:Name="numtxt" HorizontalAlignment="Left" Height="23" Margin="421,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="56" MaxLines="1" FontSize="16" Text="&#xD;&#xA;" FontFamily="Yu Gothic" TextChanged="numtxt_TextChanged"/>
         <Label x:Name="neighbourlabel_Copy" Content="Iterations" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="53,225,0,0" Height="37" FontSize="20" Width="120"/>
-        <RadioButton Content="Clickable" HorizontalAlignment="Left" Margin="285,120,0,0" VerticalAlignment="Top" Height="33" Width="139" FontSize="16" FontFamily="Yu Gothic" Checked="RadioButton_Checked_1"/>
-        <Label x:Name="n" Content="N." HorizontalAlignment="Left" Margin="477,177,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,1.269" Height="23"/>
-        <Label x:Name="neighbourlabel_Copy1" Content="Updating" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="331,211,0,0" Height="37" FontSize="20" Width="102"/>
-        <RadioButton Content="By Percentage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="21" Width="128" FontSize="16" FontFamily="Yu Gothic" Checked="RadioButton_Checked" Margin="380,120,0,0"/>
+        <WrapPanel Margin="274,126,10,316" Orientation="Horizontal">
+            <RadioButton Content="Clickable" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" Width="101" FontSize="16" FontFamily="Yu Gothic" Checked="RadioButton_Checked_1"/>
+            <RadioButton Content="By Percentage" HorizontalAlignment="Left" VerticalAlignment="Top" Height="31" Width="137" FontSize="16" FontFamily="Yu Gothic" Checked="RadioButton_Checked" RenderTransformOrigin="0.742,0.667"/>
+        </WrapPanel>
+        <Label x:Name="n" Content="N." HorizontalAlignment="Left" Margin="476,190,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,1.269" Height="23"/>
+        <WrapPanel Margin="305,274,78,134" Orientation="Vertical">
 
 
-        <RadioButton x:Name="asyn" Content="Asynchronous" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="140" FontSize="16" FontFamily="Yu Gothic" Margin="312,253,0,0" Checked="asyn_Checked"/>
-        <RadioButton x:Name="sync" Content="Synchronous" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="128" FontSize="16" FontFamily="Yu Gothic" Margin="312,286,0,0" Checked="sync_Checked"/>
-        <ComboBox x:Name="boundaries" HorizontalAlignment="Left" VerticalAlignment="Top" Width="137" Height="25" Margin="43,328,0,0" FontSize="16" SelectionChanged="neighbourbox_SelectionChanged" FontFamily="Yu Gothic">
+            <RadioButton x:Name="asyn" Content="Asynchronous" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="140" FontSize="16" FontFamily="Yu Gothic" Checked="asyn_Checked"/>
+            <RadioButton x:Name="sync" Content="Synchronous" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="128" FontSize="16" FontFamily="Yu Gothic" Checked="sync_Checked"/>
+        </WrapPanel>
+        <ComboBox x:Name="boundaries" HorizontalAlignment="Left" VerticalAlignment="Top" Width="137" Height="25" Margin="43,328,0,0" FontSize="16" FontFamily="Yu Gothic" SelectionChanged="boundaries_SelectionChanged">
             <ListBoxItem Content="Fixed "/>
             <ListBoxItem Content="Taurus"/>
         </ComboBox>
         <Label x:Name="neighbourlabel_Copy2" Content="Boundaries" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Yu Gothic Medium" Margin="53,291,0,0" Height="37" FontSize="20" Width="120"/>
-        <Label x:Name="n_Copy" Content="%" HorizontalAlignment="Left" Margin="477,146,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,1.269"/>
+        <Label x:Name="n_Copy" Content="%" HorizontalAlignment="Left" Margin="476,164,0,0" VerticalAlignment="Top" RenderTransformOrigin="0,1.269"/>
+        <TextBox x:Name="numtxt" Text="" TextWrapping="Wrap" FontSize="16" RenderTransformOrigin="-19.758,-6.16" MaxLines="1" FontFamily="Yu Gothic" Margin="419,191,58,256">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.079"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+        <GroupBox Header="Updating" HorizontalAlignment="Left" Height="115" Margin="283,229,0,0" VerticalAlignment="Top" Width="202" FontFamily="Yu Gothic Medium" FontSize="20"/>
 
     </Grid>
 </Window>

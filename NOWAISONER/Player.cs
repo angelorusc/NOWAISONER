@@ -21,12 +21,12 @@ namespace NOWAISONER
         public List<Player> Neighbour
         {
             get { return neighbour; }
-            set { this.neighbour = Neighbour; }
+            set { this.neighbour = value ; }
         }
         public List<Player> MooreNeighbour
         {
             get { return mooreNeighbour; }
-            set { this.mooreNeighbour = MooreNeighbour; }
+            set { this.mooreNeighbour = value; }
         }
        
         //public void AddNeighbour(Player p)
@@ -74,20 +74,20 @@ namespace NOWAISONER
             set { this.oldstate = value; }
         }
 
-        public void PassNeighbour(Player up, Player down, Player left, Player right)
-        {
-            neighbour.Add(up);
-            neighbour.Add(down);
-            neighbour.Add(left);
-            neighbour.Add(right);
-        }
-        public void PassMooreNeighbour(Player upl, Player upr, Player dwl, Player dwr)
-        {
-            mooreNeighbour.Add(upl);
-            mooreNeighbour.Add(upr);
-            mooreNeighbour.Add(dwl);
-            mooreNeighbour.Add(dwr);
-        }
+        //public void PassNeighbour(Player up, Player down, Player left, Player right)
+        //{
+        //    neighbour.Add(up);
+        //    neighbour.Add(down);
+        //    neighbour.Add(left);
+        //    neighbour.Add(right);
+        //}
+        //public void PassMooreNeighbour(Player upl, Player upr, Player dwl, Player dwr)
+        //{
+        //    mooreNeighbour.Add(upl);
+        //    mooreNeighbour.Add(upr);
+        //    mooreNeighbour.Add(dwl);
+        //    mooreNeighbour.Add(dwr);
+        //}
        
         public Player(Rectangle rp,int x, int y, int num, string State)
         {
@@ -97,6 +97,10 @@ namespace NOWAISONER
             this.x = x;
             this.y = y;
             // this.fitnessScore = 0;
+        }
+        public Player(string State)
+        {
+            this.state = State;
         }
        
     }

@@ -32,18 +32,18 @@ namespace NOWAISONER
         private int size;
         private int iterationn;
         private int defectorsperc = 0;
+        private int percdef;
         private string neightype;
         private string typeofdefectors;
         private string synchro;
-    
+        private string bound;
         
         private void txtslider2_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
-            defectorsperc = Convert.ToInt32(perctxt.Text) * (size * size) / 100;
-            
-            numtxt.Text = Convert.ToString(defectorsperc);
-            
+                bool isNumer2 = int.TryParse(perctxt.Text, out percdef);
+                defectorsperc = percdef * (size * size) / 100;
+
+                numtxt.Text = Convert.ToString(defectorsperc);
         }
 
         private void latticesize_TextChanged(object sender, TextChangedEventArgs e)
@@ -53,17 +53,15 @@ namespace NOWAISONER
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+                string boun = boundaries.Text;
             
-                Game game = new Game(size, defectorsperc, neightype, iterationn, synchro);
+                Game game = new Game(size, defectorsperc, neightype, iterationn, synchro, boun, typeofdefectors);
                 game.Show();
-            
-        }
+                
 
-        private void numdef_TextChanged(object sender, TextChangedEventArgs e)
-        {
-         
         }
-
+       
+        
         private void neighbourbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (neighbourbox.Text == "Von Neumann")
@@ -98,6 +96,7 @@ namespace NOWAISONER
             numtxt.Visibility = Visibility.Collapsed;
             n.Visibility = Visibility.Collapsed;
             n_Copy.Visibility = Visibility.Collapsed;
+            
         }
 
         private void asyn_Checked(object sender, RoutedEventArgs e)
@@ -114,5 +113,10 @@ namespace NOWAISONER
         {
             //defectorsperc = Convert.ToInt32(numtxt.Text);
         }
+
+        private void boundaries_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+       
     }
 }
