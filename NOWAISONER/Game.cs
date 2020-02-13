@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Windows.Input;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Drawing.Imaging;
 namespace NOWAISONER
 {
     public partial class Game : Form
@@ -17,48 +19,94 @@ namespace NOWAISONER
         private int defectors; // number of defectors
         private int iterations; // number of iterations
         private int xys;
-        int it; // iterations
-        
+        private int it;
 
+        
         private string bond;
         private string synchro;
         private string neighbourtype; // von neumann or moore neighbours
         private string defecttype;
-        private bool drawn = false; // bool if grid is drawn
-        private bool stopped = false;
-        private Panel panel2;
        
+        private bool stopped = false;
+      
 
         private List<Player> defectorslis = new List<Player>();  //defector list to take count of defectors
         private List<Player> cooperatorslis = new List<Player>(); // cooperators list 
         private List<Player> Players = new List<Player>(); // list of players
         private List<int> synchroscores = new List<int>();
 
-        private int[] fitnessscores;
+        
         Player[,] Agents; // 2d array for keep players location
-        Rectangle[,] GridRect;
+      
 
         private Random rand = new Random(); //random number 
 
         Graphics gr;
+        Rectangle Rectexp;
         Pen myPen = new Pen(Brushes.Black, 1);
 
-        public Game(int size, int defectors, string neigh, int iters, string synchroyn, string bounda, string typedefe)
-        {
+        Scores classcore;
 
+        public Graphics Gr
+        {
+            get { return gr; }
+            set { this.gr = Gr; }
+        }
+        public Pen MyPen
+        {
+            get { return myPen; }
+            set { this.myPen = MyPen; }
+        }
+        public string Synchro
+        {
+            get { return synchro; }
+            set { this.synchro = value; }
+        }
+        public int Defectors
+        {
+            get { return defectors; }
+            set { this.defectors = value; }
+        }
+
+        public string Neighbourtype
+        {
+            get { return neighbourtype; }
+            set { this.neighbourtype = value; }
+        }
+        public List<Player> players
+        {
+            get { return Players; }
+            set { this.Players = players; }
+        }
+        public List<Player> Defectorslis
+        {
+            get { return defectorslis; }
+            set { this.defectorslis = Defectorslis; }
+        }
+        public List<Player> Cooperatorslis
+        {
+            get { return cooperatorslis; }
+            set { this.cooperatorslis = Cooperatorslis; }
+        }
+        public Game(NewGrid newgame, Scores scor)
+        {
             InitializeComponent();
+            btnplay.Enabled = false;
+            btnstop.Enabled = false;
+            settingstxt.Text = string.Format("Size: {0} | Neighbours: {1} | Iterations: {2} | Boundaries: {3} | Updating: {4} ", Convert.ToString(newgame.Size), newgame.Neightype, Convert.ToString(newgame.Iteration), newgame.Bound, newgame.Synchro);
 
             playersnum.Text = Convert.ToString(size * size);
-            this.size = size;
-            this.defectors = defectors;
-            this.defecttype = typedefe;
-            this.neighbourtype = neigh;
-            this.iterations = iters;
-            this.synchro = synchroyn; // if synchronous or asynchronous
-            this.bond = bounda;
-
+            this.size = newgame.Size;
+            this.defectors = newgame.Defectors;
+            this.defecttype = newgame.Typeofdefector;
+            this.neighbourtype = newgame.Neightype ;
+            this.iterations = newgame.Iteration;
+            this.synchro = newgame.Synchro; // if synchronous or asynchronous
+            this.bond = newgame.Bound;
+            this.classcore = scor;
           //  chartload();
-            infotab(typedefe);
+            infotab(defecttype);
+            playersnum.Text = Convert.ToString(newgame.Size * newgame.Size);
         }
 
 
@@ -70,6 +118,8 @@ namespace NOWAISONER
             int y = 0;
             Agents = new Player[size, size];
             int counter = 0;
+            Rectexp = new Rectangle(x, y, panel1.Width, panel1.Height);
+            
             for (int r = 0; r < size; r++)
             {
                 for (int c = 0; c < size; c++)
@@ -85,6 +135,7 @@ namespace NOWAISONER
                     Players.Add(p);
                     x += xys;
                     counter++;
+                   
                 }
                 y += xys;
                 x = 0;
@@ -95,6 +146,9 @@ namespace NOWAISONER
         private void drawbtn_Click(object sender, EventArgs e)
         {
             drawbtn.Enabled = false;
+            btnplay.Enabled = true;
+            btnstop.Enabled = true;
+            drawbtn.Text = "DRAWN";
             
             DrawGrid();
             if (defecttype == "perc")
@@ -110,7 +164,7 @@ namespace NOWAISONER
                     p.MooreNeighbour = GetMooreNeigh(p);
                 }
             }
-            typeofplayers.Text = defecttype + "," + neighbourtype + "," + bond + " " + synchro + " " + Players[0].Neighbour[0].Num + " " + Players[0].MooreNeighbour[1].Num;
+            drawbtn.Text = "DRAWN";
         }
 
         private void drawStates()
@@ -120,7 +174,7 @@ namespace NOWAISONER
                 int xdef = rand.Next(size);
                 int ydef = rand.Next(size);
                 Player p = Agents[xdef, ydef];
-                //int n = xdef * ydef;
+                
                 if (p.State != "D")
                 {
                     p.State = "D";
@@ -131,11 +185,54 @@ namespace NOWAISONER
                 }
                 else k--;
             }
-
-            defelist.Text = Convert.ToString(defectorslis.Count);
-            cooplist.Text = Convert.ToString(cooperatorslis.Count);
         } // draw initial configurations of defectors 
 
+        private List<Player> GetNeighbour(Player p) // Von Neumann
+        {
+            Player left, right, up, down;
+            Player playernull = new Player("null");
+            List<Player> plist = new List<Player>();
+            int xym = size - 1;
+            int xp = p.X + 1;
+            int xm = p.X - 1;
+            int yp = p.Y + 1;
+            int ym = p.Y - 1;
+
+            if (p.X == 0)
+            {
+                if (bond == "Taurus") { left = Agents[xym, p.Y]; }
+                else { left = playernull; }
+                //  p.AddNeighbour(Agents[xym, p.Y]);
+            }
+            else left = Agents[xm, p.Y]; // left
+
+            if (p.X == xym)
+            {
+                if (bond == "Taurus") right = Agents[0, p.Y];
+                else right = playernull;
+            }
+            else right = Agents[xp, p.Y]; // right
+
+            if (p.Y == 0)
+            {
+                if (bond == "Taurus") up = Agents[p.X, xym];
+                else up = playernull;
+            }
+            else up = Agents[p.X, ym]; // up
+
+            if (p.Y == xym)
+            {
+                if (bond == "Taurus") down = Agents[p.X, 0];
+                else down = playernull;
+            }
+            else down = Agents[p.X, yp]; // down
+
+            plist.Add(left);
+            plist.Add(right);
+            plist.Add(up);
+            plist.Add(down);
+            return plist;
+        }
         private List<Player> GetMooreNeigh(Player p)
         {
             Player upl, upr, dwl, dwr;
@@ -235,104 +332,101 @@ namespace NOWAISONER
             return plistM;
         }
 
-        private List<Player> GetNeighbour(Player p) // Von Neumann
-        {
-            Player left, right, up, down;
-            Player playernull = new Player("null");
-            List<Player> plist = new List<Player>();
-            int xym = size - 1;
-            int xp = p.X + 1;
-            int xm = p.X - 1;
-            int yp = p.Y + 1;
-            int ym = p.Y - 1;
-
-            if (p.X == 0)
-            {
-                if (bond == "Taurus") { left = Agents[xym, p.Y]; }
-                else { left = playernull; }
-                //  p.AddNeighbour(Agents[xym, p.Y]);
-            }
-            else left = Agents[xm, p.Y]; // left
-
-            if (p.X == xym)
-            {
-                if (bond == "Taurus") right = Agents[0, p.Y];
-                else right = playernull;
-            }
-            else right = Agents[xp, p.Y]; // right
-
-            if (p.Y == 0)
-            {
-                if (bond == "Taurus") up = Agents[p.X, xym];
-                else up = playernull;
-            }
-            else up = Agents[p.X, ym]; // up
-
-            if (p.Y == xym)
-            {
-                if (bond == "Taurus") down = Agents[p.X, 0];
-                else down = playernull;
-            }
-            else down = Agents[p.X, yp]; // down
-
-            plist.Add(left);
-            plist.Add(right);
-            plist.Add(up);
-            plist.Add(down);
-            return plist;
-        }
-
-
-
+       
         private async void btnplay_Click(object sender, EventArgs e)
         {
+            //chartload();
             btnplay.Enabled = false;
             stopped = false;
             btnstop.Enabled = true;
+
+            GraphStyle(); // graph type
+           
             await Task.Run(() =>
             {
-                for (int i = 0; i < iterations;)
+                if (it != 0 || it != iterations)
                 {
-                    Parallel.ForEach(Players, p =>
+                    for (int i = it; i < iterations;)
+                    {
+                        UpdateGraph(); // update graph data
+                        Parallel.ForEach(Players, p =>
                         {
                             Match(p);
                         });
-                    newGeneration();
-
-                    
-                    System.Threading.Thread.Sleep(500);
-                    if (stopped) return;
-                   // chart1.Series["Cooperator"].Points.AddXY(iterations, cooperatorslis.Count);
-                   // chart1.Series["Defector"].Points.AddXY(iterations, defectorslis.Count);
-                    i++;
+                        newGeneration();
+                        System.Threading.Thread.Sleep(500);
+                        if (stopped) return;
+                        it = i;
+                        i++;
+                    }
                 }
-                
+                else
+                {
+                    for (int i = 0; i < iterations;)
+                    {
+                        UpdateGraph(); // update graph data
+                        Parallel.ForEach(Players, p =>
+                            {
+                                Match(p);
+                            });
+                        newGeneration();
+                        System.Threading.Thread.Sleep(500);
+                        if (stopped) return;
+                        it = i;
+                        i++;
+                    }
+                }
+
             });
 
-           defelist.Text = Convert.ToString(defectorslis.Count);
-           cooplist.Text = Convert.ToString(cooperatorslis.Count);
-           
+        
         }
 
-        void chartload()
+        private void UpdateGraph()
         {
-            var chart = chart1.ChartAreas[0];
-            chart.AxisX.LabelStyle.Format = "";
-            chart.AxisY.LabelStyle.Format = "";
-            chart.AxisX.LabelStyle.IsEndLabelVisible = true;
-            chart.AxisX.Minimum = 0;
-            chart.AxisY.Minimum = 0;
-            chart.AxisX.Interval = 1;
-            chart.AxisX.Interval = 50;
-       
-
+            Series sd = chart1.Series[1];
+            Series sc = chart1.Series[0];
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(delegate
+                {
+                    sd.Points.Add(defectorslis.Count);
+                    sc.Points.Add(cooperatorslis.Count);
+                    iter.Text = Convert.ToString(it);
+                    defelist.Text = Convert.ToString(defectorslis.Count);
+                    cooplist.Text = Convert.ToString(cooperatorslis.Count);
+                }));
+            }
+            else
+            {
+                sd.Points.Add(defectorslis.Count);
+                sc.Points.Add(cooperatorslis.Count);
+                iter.Text = Convert.ToString(it);
+                defelist.Text = Convert.ToString(defectorslis.Count);
+                cooplist.Text = Convert.ToString(cooperatorslis.Count);
+            }
         }
 
-            private void updateiter(int i)
+        private void GraphStyle()
         {
-            
-            
+            if (graphcombo.Text == "Column")
+            {
+                chart1.Series[1].ChartType = SeriesChartType.Column;
+                chart1.Series[0].ChartType = SeriesChartType.Column;
+            }
+            else if (graphcombo.Text == "Line")
+            {
+                chart1.Series[1].ChartType = SeriesChartType.Line;
+                chart1.Series[0].ChartType = SeriesChartType.Line;
+            }
+            else if (graphcombo.Text == "Stacked Column")
+            {
+                chart1.Series[1].ChartType = SeriesChartType.StackedColumn;
+                chart1.Series[0].ChartType = SeriesChartType.StackedColumn;
+            }
+
         }
+
         private void Match(Player p)
         {
           p.FitnessScore += Play(p, p.Neighbour[0]);
@@ -362,22 +456,22 @@ namespace NOWAISONER
                 {
                     if (player2.State == "C")
                     {
-                        return 1;
+                        return classcore.R; //reward C C
                     }
                     if (player2.State == "D")
                     {
-                        return 0;
+                        return classcore.S; // sucker C D
                     }
                 }
                 else //if (player1.State == "D")
                 {
                     if (player2.State == "C")
                     {
-                        return 2;
+                        return classcore.T; // temptation D C
                     }
                     if (player2.State == "D")
                     {
-                        return 0;
+                        return classcore.P; // punishment D D
                     }
                 }
                 return 0;
@@ -386,6 +480,7 @@ namespace NOWAISONER
 
         private void newGeneration()
         {
+
             if (synchro == "syn")
             {
                 Parallel.ForEach(Players, p =>
@@ -393,7 +488,7 @@ namespace NOWAISONER
                     Player best = BestNeighbour(p);
 
                     NewBehaviour(p, best.State);
-                    
+
                 });
             }
             else
@@ -405,7 +500,7 @@ namespace NOWAISONER
                     NewBehaviour(p, best.State);
                 }
             }
-            
+
         } // draw a new generation in synch or asynchro
 
         private Player BestNeighbour(Player p)
@@ -414,20 +509,20 @@ namespace NOWAISONER
 
             if (neighbourtype == "M")
             {
-                    Player BestM = p.MooreNeighbour.Aggregate((p1, p2) => p1.FitnessScore > p2.FitnessScore ? p1 : p2);
-                
+                Player BestM = p.MooreNeighbour.Aggregate((p1, p2) => p1.FitnessScore > p2.FitnessScore ? p1 : p2);
+
                 if (BestV.FitnessScore >= BestM.FitnessScore)
-                    {
+                {
                     if (BestV.FitnessScore >= p.FitnessScore)
                         return BestV;
                     else return p;
-                    }
-                    else
-                    {
+                }
+                else
+                {
                     if (BestM.FitnessScore >= p.FitnessScore)
                         return BestM;
                     else return p;
-                    }
+                }
             }
             else
             {
@@ -437,51 +532,68 @@ namespace NOWAISONER
             }
         }
 
-        private void  NewBehaviour(Player p, string beststat)
+        private void NewBehaviour(Player p, string beststat)
         {
-           
-           Graphics gr = panel1.CreateGraphics();
+
+            Graphics gr = panel1.CreateGraphics();
             if (p.State == "C")
             {
                 if (beststat == "D")
                 {
                     gr.FillRectangle(Brushes.Yellow, p.RectP);
                     p.State = "D";
-                   // gr.DrawRectangle(myPen, p.RectP);
-                    defectorslis.Add(p);
+                    this.Invoke(new MethodInvoker(delegate
+                    {
+                        gr.DrawRectangle(myPen, p.RectP);
+                    }));
                     cooperatorslis.Remove(p);
-                   
-                    
+                    defectorslis.Add(p);
+
+
+
                 }
                 else
                 {
                     gr.FillRectangle(Brushes.Blue, p.RectP);
                     p.State = "C";
-                    //gr.DrawRectangle(myPen, p.RectP);
+                    this.Invoke(new MethodInvoker(delegate
+                    {
+                        gr.DrawRectangle(myPen, p.RectP);
+                    }));
+
                     //cooperatorslis.Add(p);
-                   
+
                 }
             }
             else
             {
                 if (beststat == "C")
-                { 
+                {
                     gr.FillRectangle(Brushes.Green, p.RectP);
                     p.State = "C";
-                   // gr.DrawRectangle(myPen, p.RectP);
-                    cooperatorslis.Add(p);
+                    this.Invoke(new MethodInvoker(delegate
+                    {
+                        gr.DrawRectangle(myPen, p.RectP);
+                    }));
                     defectorslis.Remove(p);
-                  
+                    cooperatorslis.Add(p);
+
+
                 }
                 else
-                { 
+                {
                     gr.FillRectangle(Brushes.Red, p.RectP);
                     p.State = "D";
-                    //  gr.DrawRectangle(myPen, p.RectP);
+                    this.Invoke(new MethodInvoker(delegate
+                    {
+                        gr.DrawRectangle(myPen, p.RectP);
+                    }));
                     //defectorslis.Add(p);
-                   
+
                 }
             }
+
+
         }
 
         private void panel1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -528,6 +640,26 @@ namespace NOWAISONER
             btnplay.Text = "RESUME";
             stopped = true;
             btnstop.Enabled = false;
+            
+        }
+
+        private void exgrid_Click(object sender, EventArgs e)
+        {
+            var frm = Form.ActiveForm;
+            var bmp = new Bitmap(panel1.Width + 2, panel1.Height + 23);
+            Graphics g = Graphics.FromImage(bmp);
+            g.CopyFromScreen(frm.Location.X + 28, frm.Location.Y + 61, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
+            bmp.Save(@"C:\Users\rusci\Desktop\gridtrial.jpg");
+
+        }
+
+        private void exgraph_Click(object sender, EventArgs e)
+        {
+            var frm = Form.ActiveForm;
+            var bmp = new Bitmap(chart1.Width, chart1.Height - 3);
+            Graphics g = Graphics.FromImage(bmp);
+            g.CopyFromScreen(frm.Location.X + 962, frm.Location.Y + 632, 0, 0, bmp.Size, CopyPixelOperation.SourceCopy);
+            bmp.Save(@"C:\Users\rusci\Desktop\Graphtrial.jpg");
         }
     }
 }

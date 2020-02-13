@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace NOWAISONER
 {
-    class Player
+    public class Player
     {
         private int x, y;
         private int  num;

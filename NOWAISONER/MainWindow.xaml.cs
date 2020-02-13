@@ -33,29 +33,35 @@ namespace NOWAISONER
         private int iterationn;
         private int defectorsperc = 0;
         private int percdef;
-        private string neightype;
-        private string typeofdefectors;
-        private string synchro;
-        private string bound;
+        private int[] scores;
+        
+        NewGrid New = new NewGrid();
+        Scores score = new Scores();
         
         private void txtslider2_TextChanged(object sender, TextChangedEventArgs e)
         {
                 bool isNumer2 = int.TryParse(perctxt.Text, out percdef);
                 defectorsperc = percdef * (size * size) / 100;
-
-                numtxt.Text = Convert.ToString(defectorsperc);
+                New.Defectors = defectorsperc;
+                
+            
+                
         }
 
         private void latticesize_TextChanged(object sender, TextChangedEventArgs e)
         {
             bool isNumeric = int.TryParse(latticesize.Text, out size);
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-                string boun = boundaries.Text;
-            
-                Game game = new Game(size, defectorsperc, neightype, iterationn, synchro, boun, typeofdefectors);
+            New.Size = size;
+            score.T = Convert.ToDouble(t.Text);
+            score.R = Convert.ToDouble(r.Text);
+            score.S = Convert.ToDouble(s.Text);
+            score.P = Convert.ToDouble(p.Text);
+            Game game = new Game(New,score);
                 game.Show();
                 
 
@@ -66,22 +72,23 @@ namespace NOWAISONER
         {
             if (neighbourbox.Text == "Von Neumann")
             {
-                neightype = "V";
+                New.Neightype = "V";
             }
             else
             {
-                neightype = "M";
+                New.Neightype = "M";
             }
         }
 
         private void iteration_TextChanged(object sender, TextChangedEventArgs e)
         {
             bool isNumeric = int.TryParse(iteration.Text, out iterationn);
+            New.Iteration = iterationn;
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            typeofdefectors = "perc";
+            New.Typeofdefector = "perc";
             perctxt.Visibility = Visibility.Visible;
             numtxt.Visibility = Visibility.Visible;
             n.Visibility = Visibility.Visible;
@@ -91,7 +98,7 @@ namespace NOWAISONER
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
-            typeofdefectors = "click";
+            New.Typeofdefector = "click";
             perctxt.Visibility = Visibility.Collapsed;
             numtxt.Visibility = Visibility.Collapsed;
             n.Visibility = Visibility.Collapsed;
@@ -101,22 +108,46 @@ namespace NOWAISONER
 
         private void asyn_Checked(object sender, RoutedEventArgs e)
         {
-            synchro = "asy";
+            New.Synchro = "asy";
         }
 
         private void sync_Checked(object sender, RoutedEventArgs e)
         {
-            synchro = "syn";
+            New.Synchro = "syn";
         }
 
         private void numtxt_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //defectorsperc = Convert.ToInt32(numtxt.Text);
+            try
+            {
+                New.Defectors = Convert.ToInt32(numtxt.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Insert a correct number of defectors");
+            }
         }
 
         private void boundaries_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (boundaries.Text == "Fixed")
+            {
+                New.Bound = "Fix";
+            }
+            else
+            {
+                New.Bound = "Tau";
+            }
         }
-       
+        
+        private void t_TextChanged(object sender, TextChangedEventArgs e)
+        {
+          
+        }
+
+        private void r_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
     }
 }
